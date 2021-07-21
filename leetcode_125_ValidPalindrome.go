@@ -1,17 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"regexp"
+	"strings"
+)
 
-func isPalindrome(input string) bool {
-	for i := 0; i < len(input)/2; i++ {
-		if input[i] != input[len(input)-i-1] {
+func isPalindrome(s string) bool {
+	reg, _ := regexp.Compile("[^a-zA-Z0-9]+")
+	alnumString := reg.ReplaceAllString(s, "")
+	processedString := strings.ToLower(alnumString)
+
+	length := len(processedString)
+	n := length / 2
+	for i := 0; i < n; i++ {
+		if processedString[i] != processedString[(length-i-1)] {
 			return false
 		}
 	}
 	return true
-}
-
-func main() {
-	fmt.Println(isPalindrome("anna"))
-	fmt.Println(isPalindrome("A man, a plan, a canal: Panama"))
 }
